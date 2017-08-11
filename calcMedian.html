@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmark Test Cases</title>
+    <script>
+      var VALUE = 2.11223344556677889900;
+
+    </script>
+    <script src="stats/statData.js"></script>
+  </head>
+  <body>
+
+    <div id="downloadFile"></div>
+
+  </body>
+  <script>
+    if (statData) {
+      var ARRAY_SIZE = 10000;
+      var COUNTER = 999;
+
+      var testit = new statData('1', ARRAY_SIZE, true);
+      for (var i=0; i < COUNTER; i++) {
+        testit.addElement(2);
+      }
+      testit.addElement(50);
+      console.log(testit.getTotalCount()+ ': average : '+testit.getAverage());
+      console.log(testit.getTotalCount()+ ': average : '+testit.getMedian());
+    } else {
+      console.error('cannot init collectData');
+    }
+  </script>
+</html>

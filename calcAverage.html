@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Average</title>
+  </head>
+  <body>
+
+    <div id="output"></div>
+
+  </body>
+
+  <script>
+  'use strict';
+    var elem = document.getElementById('output');
+    var count = 100000000;
+    var total = 0;
+    var average = 0;
+    for (var i=0; i <= (count-2); i++) {
+	total += 2;
+    }
+
+    total += 50;
+    average = (total / count);
+    console.log('average: '+average);
+
+    elem.innerHTML = 'average: '+average;
+  </script>
+
+  </html>

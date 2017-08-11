@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test round methods</title>
+    <script src="js/round.js"></script>
+  </head>
+  <body>
+
+    <div id="output"></div>
+
+  </body>
+
+  <script>
+  'use strict';
+    var elem = document.getElementById('output');
+    var data = '';
+    var TEMP = 2.1234567890;
+    var total = TEMP;
+    var factors = [1000, 10000, 100000, 1000000, 10000000, 100000000];
+    var totalFactor = [];
+    for (var key in factors) {
+      totalFactor[factors[key]] = TEMP;
+    }
+
+    for (var j in factors) {
+      data += 'count: ' + factors[j] + '<br>';
+      for (var i=0; i < factors[j]; i++) {
+        total = roundEuler((total + TEMP) / 2);
+        //total2 = roundFactor((total2 + TEMP) / 2, 100);
+        for (var key in factors) {
+          totalFactor[factors[key]] = roundFactor((totalFactor[factors[key]] + TEMP) / 2, factors[key]);
+        }
+      }
+
+      data += 'total Euler: ' + total + '<br>';
+      for (var key in factors) {
+        data += 'factor ' + factors[key] + ': ' + totalFactor[factors[key]] + '<br>';
+      }
+
+      console.log(total);
+      console.warn(totalFactor);
+      data += '<br><br>';
+
+    }
+
+    var price = 2.000005;
+    var count = 3;
+    var total = roundEuler(price * count);
+    console.log(total);
+
+    elem.innerHTML = data;
+  </script>
+
+  </html>

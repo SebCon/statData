@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benchmark Test Cases</title>
+    <script>
+      var VALUE = 2.11223344556677889900;
+
+    </script>
+    <script src="stats/statData.js"></script>
+    <script src="lib/benchmark.js"></script>
+    <script src="lib/fileMaker.js"></script>
+  </head>
+  <body>
+
+    <div id="downloadFile"></div>
+
+  </body>
+  <script>
+    if (statData && fileMaker) {
+      var ARRAY_SIZE = 10000;
+      var COUNTER = 10000;
+
+      var file = new fileMaker('downloadFile');
+
+      var testit = new statData('1', ARRAY_SIZE, true);
+      for (var i=0; i < COUNTER; i += 10000) {
+        testit.addElement(10);
+      }
+      console.log(testit.getTotalCount()+ ': average : '+testit.getAverage());
+
+      for (var j=10000; j < COUNTER; j+= 10000) {
+        var t = new statData(j, 10000, true);
+        for (var k=0; k < j; k++) {
+          t.addElement(VALUE);
+        }
+        console.log(t.getTotalCount()+ ': average : '+t.getAverage());
+        file.addContent(t.getTotalCount());
+        file.addContent(t.getAverage());
+        file.addNewLine();
+
+        t.destroyCollector();
+        //console.warn(j+ ': median : '+t.getMedian());
+        temp = t.getWarning();
+        if (temp && temp.length && temp.length > 0) {
+          console.error(temp);
+        }
+      }
+
+      file.makeTextFile();
+
+      var t2 = new statData('2', ARRAY_SIZE, true);
+      var testSizes = [20000, 30000];
+      for (var m=0; m < testSizes.length; m++) {
+        for (var k=0; k < testSizes[m]; k++) {
+          t2.addElement(VALUE);
+        }
+        console.log(t2.getTotalCount() + ' average : '+t2.getAverage());
+        t2.destroyCollector();
+      }
+    } else {
+      console.error('cannot init collectData');
+    }
+  </script>
+</html>
